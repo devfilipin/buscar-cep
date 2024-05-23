@@ -1,0 +1,30 @@
+CEP: 78025360
+Endereço: Avenida Doutor José Feliciano Figueiredo - lado par
+Bairro: Porto 
+Cidade: Cuiabá
+UF: MT
+----------------------------
+CEP: 78020250
+Endereço: Travessa José Aníbal Bouret
+Bairro: Centro Sul
+Cidade: Cuiabá
+UF: MT
+----------------------------
+CEP: 76860970
+Endereço: Avenida Tancredo Neves, 100 
+Bairro: Centro 
+Cidade: Candeias do Jamari
+UF: RO
+----------------------------
+CEP: 78088038
+Endereço: Rua Cento e Vinte e Sete
+Bairro: Tijucal
+Cidade: Cuiabá
+UF: MT
+----------------------------
+CEP: 78088037
+Endereço: Rua Cento e Vinte e Quatro
+Bairro: Tijucal
+Cidade: Cuiabá
+UF: MT
+----------------------------

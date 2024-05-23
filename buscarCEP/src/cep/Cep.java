@@ -6,6 +6,10 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
 
@@ -17,6 +21,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -37,6 +43,8 @@ public class Cep extends JFrame {
 	@SuppressWarnings("rawtypes")
 	private JComboBox cboUf;
 	private JLabel lblStatus;
+	private JButton btnSalvar;
+	private JButton btnVisualizar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -152,6 +160,24 @@ public class Cep extends JFrame {
 		lblStatus.setBounds(170, 35, 20, 20);
 		contentPane.add(lblStatus);
 
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				salvar();
+			}
+		});
+		btnSalvar.setBounds(122, 214, 89, 23);
+		contentPane.add(btnSalvar);
+
+		btnVisualizar = new JButton("Visualizar");
+		btnVisualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				visualizarEnderecos();
+			}
+		});
+		btnVisualizar.setBounds(221, 214, 95, 23);
+		contentPane.add(btnVisualizar);
+
 		RestrictedTextField validar = new RestrictedTextField(txtCep);
 		validar.setOnlyNums(true);
 		validar.setLimit(8);
@@ -208,5 +234,40 @@ public class Cep extends JFrame {
 		cboUf.setSelectedItem(null);
 		txtCep.requestFocus();
 		lblStatus.setIcon(null);
+	}
+
+	private void salvar() {
+		try (FileWriter writer = new FileWriter("enderecos.txt", true)) {
+			writer.write("CEP: " + txtCep.getText() + "\n");
+			writer.write("Endereço: " + txtEndereco.getText() + "\n");
+			writer.write("Bairro: " + txtBairro.getText() + "\n");
+			writer.write("Cidade: " + txtCidade.getText() + "\n");
+			writer.write("UF: " + cboUf.getSelectedItem() + "\n");
+			writer.write("----------------------------\n");
+			JOptionPane.showMessageDialog(null, "Endereço salvo com sucesso!");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao salvar o endereço: " + e.getMessage());
+		}
+	}
+
+	private void visualizarEnderecos() {
+		try (BufferedReader reader = new BufferedReader(new FileReader("enderecos.txt"))) {
+			String line;
+			StringBuilder content = new StringBuilder();
+			while ((line = reader.readLine()) != null) {
+				content.append(line).append("\n");
+			}
+			JTextArea textArea = new JTextArea(content.toString());
+			textArea.setEditable(false);
+			JScrollPane scrollPane = new JScrollPane(textArea);
+			JFrame frame = new JFrame("Endereços Salvos");
+			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Cep.class.getResource("/img/home.png")));
+			frame.getContentPane().add(scrollPane);
+			frame.setSize(400, 300);
+			frame.setLocationRelativeTo(null);
+			frame.setVisible(true);
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao ler os endereços: " + e.getMessage());
+		}
 	}
 }

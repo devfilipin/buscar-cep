@@ -52,16 +52,12 @@ public class Sobre extends JDialog {
 		lblNewLabel_1.setBounds(18, 50, 151, 23);
 		getContentPane().add(lblNewLabel_1);
 
-		/*JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(Sobre.class.getResource("/img/mit.png")));
-		lblNewLabel_3.setBounds(248, 0, 96, 96);
-		getContentPane().add(lblNewLabel_3);*/
 
 		JButton btnGithub = new JButton("");
 		btnGithub.setToolTipText("Documentação");
 		btnGithub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				link("https://github.com/danifilipin/cep");
+				link("https://github.com/devfilipin/buscar-cep");
 			}
 		});
 		btnGithub.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
